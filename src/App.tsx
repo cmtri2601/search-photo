@@ -87,10 +87,10 @@ const App = () => {
 
   return (
     <div>
-      <div style={{ position: 'fixed', zIndex: 1, padding: 'auto' }}>
+      <div>
         <SearchBar onSearch={onSearch} />
       </div>
-      <div style={{ position: 'relative', zIndex: 0, top: 50 }}>
+      <div>
         <ListPhoto
           isLoading={isLoading}
           isLoadingMore={isLoadingMore}
