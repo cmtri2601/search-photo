@@ -14,16 +14,15 @@ const App = () => {
     try {
       const { data } = await axios({
         method: 'get',
-        url: `https://pixabay.com/api`,
-        withCredentials: false,
+        url: `https://api.pexels.com/v1/search`,
         params: {
-          key: '40355524-2b37ed1101525fc22f01330c7',
-          q: searchValue,
-          image_type: 'photo',
-          pretty: 'true',
+          query: searchValue,
+        },
+        headers: {
+          Authorization: 'z6i8k7hWWINCIZOfVlwuj0N0sIeOgSbD2G5eA6qKWViOMQZixUdDlMWW',
         },
       });
-      setPhotos(data.hits);
+      setPhotos(data.photos);
       setIsLoading(false);
     } catch (err) {
       setIsLoading(false);

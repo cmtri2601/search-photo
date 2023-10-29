@@ -1,10 +1,14 @@
 import { CircularProgress, ImageList, ImageListItem } from '@mui/material';
 import Container from '@mui/material/Container';
 
-export interface IPhoto {
+interface ISource {
+  original: string;
+}
+interface IPhoto {
   id: number;
-  imageURL: string;
-  tags: string;
+  url: string;
+  alt: string;
+  src: ISource;
 }
 
 interface IListPhoto {
@@ -32,9 +36,9 @@ const ListPhoto = ({ isLoading, photos }: IListPhoto) => {
         {photos.map(item => (
           <ImageListItem key={item.id}>
             <img
-              srcSet={`${item.imageURL}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-              src={`${item.imageURL}?w=164&h=164&fit=crop&auto=format`}
-              alt={item.tags}
+              srcSet={`${item.src.original}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+              src={`${item.src.original}?w=164&h=164&fit=crop&auto=format`}
+              alt={item.alt}
               loading="lazy"
             />
           </ImageListItem>
