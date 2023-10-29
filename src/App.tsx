@@ -2,6 +2,7 @@ import { useState } from 'react';
 import './App.css';
 import SearchBar from './components/SearchBar';
 import ListPhoto from './components/ListPhoto';
+import axios from 'axios';
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -9,22 +10,25 @@ const App = () => {
 
   const onSearch = async (searchValue: string) => {
     setIsLoading(true);
-    await fetch(
-      `https://pixabay.com/api/?key=40355524-2b37ed1101525fc22f01330c7&q=${searchValue}&image_type=photo&pretty=true`,
-      {
+
+    try {
+      const { data } = await axios({
         method: 'get',
-        headers: { 'Content-Type': 'application/json' },
-      }
-    )
-      .then(res => res.json())
-      .then(data => {
-        setPhotos(data.hits);
-        setIsLoading(false);
-      })
-      .catch(err => {
-        setIsLoading(false);
-        console.log(err);
+        url: `https://pixabay.com/api`,
+        withCredentials: false,
+        params: {
+          key: '40355524-2b37ed1101525fc22f01330c7',
+          q: searchValue,
+          image_type: 'photo',
+          pretty: 'true',
+        },
       });
+      setPhotos(data.hits);
+      setIsLoading(false);
+    } catch (err) {
+      setIsLoading(false);
+      console.log(err);
+    }
   };
 
   return (

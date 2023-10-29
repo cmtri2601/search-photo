@@ -1,7 +1,11 @@
+import { CircularProgress, ImageList, ImageListItem } from '@mui/material';
 import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
-import Photo, { IPhoto } from './Photo';
-import { CircularProgress } from '@mui/material';
+
+export interface IPhoto {
+  id: number;
+  imageURL: string;
+  tags: string;
+}
 
 interface IListPhoto {
   isLoading: boolean;
@@ -24,13 +28,18 @@ const ListPhoto = ({ isLoading, photos }: IListPhoto) => {
       )}
 
       {/* Show list image */}
-      <Container sx={{ py: 8 }} maxWidth="md">
-        <Grid container spacing={4}>
-          {photos.map(photo => (
-            <Photo {...photo} />
-          ))}
-        </Grid>
-      </Container>
+      <ImageList sx={{ width: 500, height: 450 }} cols={3} rowHeight={164}>
+        {photos.map(item => (
+          <ImageListItem key={item.id}>
+            <img
+              srcSet={`${item.imageURL}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+              src={`${item.imageURL}?w=164&h=164&fit=crop&auto=format`}
+              alt={item.tags}
+              loading="lazy"
+            />
+          </ImageListItem>
+        ))}
+      </ImageList>
     </>
   );
 };

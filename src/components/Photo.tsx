@@ -1,4 +1,4 @@
-import { Card, CardContent, CardMedia, Grid, Typography } from '@mui/material';
+import { Card, CardMedia, Grid } from '@mui/material';
 
 export interface IPhoto {
   id: number;
@@ -17,14 +17,6 @@ const Photo = ({ id, imageURL }: IPhoto) => {
           }}
           image={imageURL}
         />
-        <CardContent sx={{ flexGrow: 1 }}>
-          <Typography gutterBottom variant="h5" component="h2">
-            Heading
-          </Typography>
-          <Typography>
-            This is a media card. You can use this section to describe the content.
-          </Typography>
-        </CardContent>
       </Card>
     </Grid>
   );
