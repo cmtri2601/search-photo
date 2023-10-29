@@ -1,9 +1,8 @@
+import axios from 'axios';
 import { useState } from 'react';
 import './App.css';
-import SearchBar from './components/SearchBar';
 import ListPhoto from './components/ListPhoto';
-import axios from 'axios';
-import { Box, Container } from '@mui/material';
+import SearchBar from './components/SearchBar';
 
 const PHOTO_PER_PAGE = 80;
 

@@ -1,5 +1,4 @@
 import SearchIcon from '@mui/icons-material/Search';
-import { Box } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import TextField from '@mui/material/TextField';
 import React, { useState } from 'react';
