@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { useState } from 'react';
 import './App.css';
+import { useState } from 'react';
 import ListPhoto from './components/ListPhoto';
 import SearchBar from './components/SearchBar';
 
@@ -11,13 +11,13 @@ const App = () => {
   const [photos, setPhotos] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingMore, setIsLoadingMore] = useState(false);
-  const [isAllPhoto, setIsAllPhoto] = useState(false);
   const [page, setPage] = useState(0);
   const [totalResult, setTotalResult] = useState(0);
 
   // handle search event
   const onSearch = async (value: string) => {
     if (!value) {
+      setSearchValue('');
       setPhotos([]);
     }
 
@@ -40,10 +40,8 @@ const App = () => {
       setPage(1);
       setTotalResult(data.total_results);
       setIsLoading(false);
-      setIsAllPhoto(false);
     } catch (err) {
       setIsLoading(false);
-      setIsAllPhoto(false);
       console.log(err);
     }
   };
@@ -73,27 +71,22 @@ const App = () => {
         setPhotos(pre => pre.concat(data.photos));
         setPage(pre => pre + 1);
         setIsLoadingMore(false);
-        setIsAllPhoto(false);
       } catch (err) {
         setIsLoadingMore(false);
-        setIsAllPhoto(false);
         console.log(err);
       }
-    } else {
-      setIsAllPhoto(true);
     }
   };
 
   return (
     <div>
-      <div>
+      <div className="search-bar">
         <SearchBar onSearch={onSearch} />
       </div>
-      <div>
+      <div className="main">
         <ListPhoto
           isLoading={isLoading}
           isLoadingMore={isLoadingMore}
-          isAllPhoto={isAllPhoto}
           photos={photos}
           onLoadMore={onLoadMore}
         />

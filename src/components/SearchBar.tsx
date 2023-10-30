@@ -1,7 +1,7 @@
 import SearchIcon from '@mui/icons-material/Search';
 import IconButton from '@mui/material/IconButton';
 import TextField from '@mui/material/TextField';
-import React, { useState } from 'react';
+import React, { FormEvent, useState } from 'react';
 
 interface ISearchBarProps {
   onSearch: (value: string) => void;
@@ -10,13 +10,13 @@ interface ISearchBarProps {
 const SearchBar = ({ onSearch }: ISearchBarProps) => {
   const [value, setValue] = useState<string>('');
 
-  const onClick = (event?: React.MouseEvent) => {
+  const onSubmit = (event?: FormEvent<HTMLFormElement>) => {
     event?.preventDefault();
     onSearch(value);
   };
 
   return (
-    <form>
+    <form onSubmit={onSubmit}>
       <TextField
         id="search-bar"
         className="text"
@@ -28,7 +28,7 @@ const SearchBar = ({ onSearch }: ISearchBarProps) => {
         placeholder="Search..."
         size="small"
       />
-      <IconButton type="submit" aria-label="search" onClick={onClick}>
+      <IconButton type="submit" aria-label="search">
         <SearchIcon style={{ fill: 'blue' }} />
       </IconButton>
       {/* </Container> */}

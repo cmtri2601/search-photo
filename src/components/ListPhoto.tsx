@@ -16,25 +16,24 @@ interface IPhoto {
 interface IListPhoto {
   isLoading: boolean;
   isLoadingMore: boolean;
-  isAllPhoto: boolean;
   photos: IPhoto[];
   onLoadMore: () => void;
 }
 
-const ListPhoto = ({ isLoading, isLoadingMore, isAllPhoto, photos, onLoadMore }: IListPhoto) => {
+const ListPhoto = ({ isLoading, isLoadingMore, photos, onLoadMore }: IListPhoto) => {
   const { ref: lastPageRef, inView } = useInView();
 
   useEffect(() => {
     if (inView) {
       onLoadMore();
     }
-  }, [inView]);
+  }, [inView, onLoadMore]);
 
   /* Loading */
   if (isLoading) {
     return (
       <Container sx={{ m: 3 }}>
-        <CircularProgress />
+        <CircularProgress color="warning" />
       </Container>
     );
   }
@@ -58,23 +57,17 @@ const ListPhoto = ({ isLoading, isLoadingMore, isAllPhoto, photos, onLoadMore }:
             />
           </ImageListItem>
         ))}
-
-        {/* Loading More */}
-        {isLoadingMore && (
-          <Container sx={{ m: 3 }}>
-            <CircularProgress />
-          </Container>
-        )}
-
-        {/* Show message when all photos have been loaded */}
-        {isAllPhoto && (
-          <Container sx={{ m: 3 }}>
-            <p>All photos have been loaded!</p>
-          </Container>
-        )}
-
-        <div ref={lastPageRef}></div>
       </ImageList>
+
+      {/* Loading More */}
+      {isLoadingMore && (
+        <Container sx={{ m: 3 }}>
+          <CircularProgress color="warning" />
+        </Container>
+      )}
+
+      {/* Footer */}
+      <div ref={lastPageRef}></div>
     </>
   );
 };
